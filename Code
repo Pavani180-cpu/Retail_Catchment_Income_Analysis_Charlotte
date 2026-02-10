@@ -1,0 +1,29 @@
+import pandas as pd
+
+df = pd.read_csv('House_hold_income.csv')
+
+geoids = []
+labels = []
+estimates = []
+
+for col in df.columns:
+    if 'Estimate' in col:
+        # Extract the tract label from the column name
+        label = col.replace('!!Estimate','').strip()
+        # Extract GeoID (tract number) from label
+        geoid = label.split(';')[0].replace('Census Tract ','').strip()
+        
+        # Append each value
+        for value in df[col]:
+            geoids.append(geoid)
+            labels.append(label)
+            estimates.append(value)
+
+long_df = pd.DataFrame({
+    'GeoID': geoids,
+    'Label': labels,
+    'Estimate': estimates
+})
+
+long_df.to_excel('long_format_income.xlsx', index=False)
+print("Saved long-format Excel as 'long_format_income.xlsx'")

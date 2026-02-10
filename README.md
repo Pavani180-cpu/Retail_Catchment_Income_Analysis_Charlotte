@@ -46,7 +46,7 @@ Census Data & Shapefiles – Income and geographic boundary information
 
 
 Results / Visualizations
-Maps showing driving (5–15 min) and walking (10 min) catchment areas for each Walmart location.
+Maps showing driving (5 min) and walking (10 min) catchment areas for each Walmart location.
 Income distribution visualized using color gradients.
 Example Insights:
 - Identify high-income areas for premium product promotions.

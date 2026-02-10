@@ -1,0 +1,20 @@
+import pandas as pd
+
+df = pd.read_excel("long_format_income.xlsx")
+
+df['Estimate'] = df['Estimate'].astype(str).str.replace(',', '').astype(float)
+
+def make_geoid(tract_str):
+    tract_num = str(tract_str).strip()
+    tract_digits = tract_num.replace('.', '')  # 1.01 -> 101
+    tract_digits = tract_digits.zfill(6)       # pad to 6 digits -> 000101
+    return '37' + '119' + tract_digits         # State + County + Tract
+
+df['GEOID'] = df['GeoID'].apply(make_geoid)
+
+df_final = df[['GEOID', 'Estimate']].copy()
+df_final.rename(columns={'Estimate': 'Median_Household_Income'}, inplace=True)
+
+df_final.to_csv("mecklenburg_income_ready.csv", index=False)
+
+print("Excel converted! CSV ready for QGIS saved as 'mecklenburg_income_ready.csv'")
